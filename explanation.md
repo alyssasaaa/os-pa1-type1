@@ -52,13 +52,15 @@ os-pa1-type1/
     ./resmon.sh --help
     ./resmon.sh --interval 1 --count 3
     ./resmon.sh --interval 1 --count 3 --cpu-crit 85
-    TZ=Asia/Jakarta ./resmon.sh --interval 1 --count 0 --cpu-warn 20 --cpu-crit 40
 ```
 Defaults are interval 1, count 3, CPU thresholds 70/90, memory 75/90, swap 20/50, and load per core 1/2. Percentage thresholds range from 0 to 100, with warning no greater than critical. Invalid arguments produce an error and a nonzero exit status.
 
-Results are displayed in the terminal and appended to resource_report.csv
-(notes: the timestamps displayed is in UTC not UTC+7)
+Results are displayed in the terminal and appended to resource_report.csv (with timestamp UTC)
 
+Try run with timestamp Indonesia (UTC+7):
+```bash
+    TZ=Asia/Jakarta ./resmon.sh --interval 1 --count 0 --cpu-warn 20 --cpu-crit 40
+```
 ### No. 1: Why IOWait is excluded from the numerator but reported separately?
 
 IOWait is a metric that measures the percentage of time a computer's CPU is idle because it is waiting for an I/O operation. Since it accounts for idle time and is not an actual CPU activity, including it in the CPU usage numerator would overstate the busy usage. 
@@ -79,21 +81,35 @@ We use MemAvailable because Linux uses some RAM to cache data and make later acc
 
 ### No. 6: Explain the alert state machine and de-duplication
 
-For each CPU, memory, swap, and normalised load metric, the monitor stores the previous state. 
+For each monitored metric, the program remembers its previous state and compares it with the current state.
 
-Critical rule:
+Classification rules:
 value >= critical --> CRIT
 otherwise, value >= warning --> WARN
 otherwise --> OK
 
-| Previous state | New state | Action |
-|---|---|---|
-| OK | WARN or CRIT | One ALERT
-| WARN | CRIT | One ALERT for escalation
-| CRIT | WARN | One ALERT for the changed, still bad state
-| WARN or CRIT | OK | One RECOVER message
-| Any state | Same state | No repeated alert
-
-Each metric starts with an assumed previous state of OK. Therefore, an initially critical CPU generates one alert.....
+The program then decides what to print message as an output, is it an ALERT, or RECOVER, or neither: 
+| Previous state | New state | Action | New Stored State |
+|---|---|---|---|
+| OK | WARN | Output ALERT (Warning threshold reached) | WARN
+| OK | CRIT | Output ALERT (Critical threshold reached) | CRIT
+| WARN | CRIT | Output ALERT (Escalated to Critical) | CRIT
+| CRIT | WARN | Output ALERT (De-escalated to Warning) | WARN
+| WARN or CRIT | OK | Output RECOVER (Returned to Norma) | OK
+| Any state | Same state | None | Unchanged
 
 ### Additional metric: CPU steal time
+
+CPU steal time is the percentage of time a virtual CPU waits for a real CPU while the hypervisor is servicing another virtual processor.
+
+Our collector calculates:
+steal_pct = (steal_current − steal_previous)
+            / (total_current − total_previous) × 100
+
+We display it for the whole system and each logical CPU in the CPU breakdown. 
+
+This matters because a VM may respons slowly even when its own programs do not explain the delay. A non-zero steal percentage means that some CPU time was unavailable to our VM during the sampling interval. Our hypervisor neighbours may be competing for physical CPU time. A small value does not necessarily indicate a problem, while consistently high values can suggest competition for CPU resources.
+
+Following the assignment’s formula, steal is included in the busy (time other than idle) calculation, but it is not time spent executing our own programs. We therefore also display it separately. It is informational in our monitor and does not have its own warning or critical threshold.
+
+Steal time (/proc/stat field 8) in our awk code is $9 because $1 contains the CPU label. 

@@ -1,0 +1,460 @@
+alyssasaaa@os262:~/os-pa1-type1$ ./resmon.sh --help
+Usage: ./resmon.sh [options]
+Options:
+  --interval N       Sampling interval in seconds (default: 1)
+  --count M          Number of samples to take, 0 for infinite (default: 0)
+  --cpu-warn X       CPU warning threshold percentage (default: 70)
+  --cpu-crit X       CPU critical threshold percentage (default: 90)
+  --mem-warn X       Memory warning threshold percentage (default: 75)
+  --mem-crit X       Memory critical threshold percentage (default: 90)
+  --swap-warn X      Swap warning threshold percentage (default: 20)
+  --swap-crit X      Swap critical threshold percentage (default: 50)
+  --load-warn X      Load warning threshold per core (default: 1.0)
+  --load-crit X      Load critical threshold per core (default: 2.0)
+  --csv FILE         Append CSV to FILE (default: resource_report.csv)
+Load thresholds in the table are per-core limits multiplied by core count.
+alyssasaaa@os262:~/os-pa1-type1$ ./resmon.sh --interval 1 --count 3
+=== System Resource Monitor -- sample 1/3 -- 2026-09-20T09:19:15+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            2.5 %        warn 70/crit 90          OK       user 1.5  sys 1.0  iowait 0.0
+CPU core0            1.0 %        warn 70/crit 90          OK       
+CPU core1            3.1 %        warn 70/crit 90          OK       
+Memory               34.7 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.03         warn 2.0/crit 4.0        OK       0.03 over 2 cores = 0.01 per core
+Processes            231          -                        OK       1 running, 231 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            2.55     1.53     1.02     0.00    97.45     0.00
+cpu0           1.01     1.01     0.00     0.00    98.99     0.00
+cpu1           3.09     2.06     1.03     0.00    96.91     0.00
+
+Memory: 34.66% | used 1199380 KiB | available 2260748 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.03 5m=0.02 15m=0.00 | cores=2 | 1m per core=0.01
+Processes (assignment labels): 1 running / 231 total
+
+=== System Resource Monitor -- sample 2/3 -- 2026-09-20T09:19:16+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            6.6 %        warn 70/crit 90          OK       user 2.8  sys 3.3  iowait 0.0
+CPU core0            7.5 %        warn 70/crit 90          OK       
+CPU core1            3.9 %        warn 70/crit 90          OK       
+Memory               34.7 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.11         warn 2.0/crit 4.0        OK       0.11 over 2 cores = 0.06 per core
+Processes            234          -                        OK       1 running, 234 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            6.57     2.82     3.29     0.00    93.43     0.00
+cpu0           7.55     3.77     3.77     0.00    92.45     0.00
+cpu1           3.85     0.96     2.88     0.00    96.15     0.00
+
+Memory: 34.69% | used 1200320 KiB | available 2259808 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.11 5m=0.04 15m=0.01 | cores=2 | 1m per core=0.06
+Processes (assignment labels): 1 running / 234 total
+
+=== System Resource Monitor -- sample 3/3 -- 2026-09-20T09:19:17+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            7.2 %        warn 70/crit 90          OK       user 2.4  sys 4.3  iowait 0.0
+CPU core0            6.6 %        warn 70/crit 90          OK       
+CPU core1            8.7 %        warn 70/crit 90          OK       
+Memory               34.7 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.11         warn 2.0/crit 4.0        OK       0.11 over 2 cores = 0.06 per core
+Processes            231          -                        OK       1 running, 231 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            7.21     2.40     4.33     0.00    92.79     0.00
+cpu0           6.60     1.89     3.77     0.00    93.40     0.00
+cpu1           8.65     3.85     4.81     0.00    91.35     0.00
+
+Memory: 34.70% | used 1200556 KiB | available 2259572 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.11 5m=0.04 15m=0.01 | cores=2 | 1m per core=0.06
+Processes (assignment labels): 1 running / 231 total
+
+
+=================== Execution Summary ===================
+Total Samples Taken : 3
+Total Runtime       : 3 seconds
+---------------------------------------------------------
+METRIC      PEAK VALUE    TIME IN WARN    TIME IN CRIT
+---------------------------------------------------------
+CPU TOTAL   7.21%         0s              0s          
+CPU core0   7.55%         0s              0s          
+CPU core1   8.65%         0s              0s          
+Memory      34.70%        0s              0s          
+Swap        0.0%          0s              0s          
+Load        0.06          0s              0s          
+=========================================================
+alyssasaaa@os262:~/os-pa1-type1$ ./resmon.sh --interval 1 --count 0
+=== System Resource Monitor -- sample 1/unlimited -- 2026-09-20T09:19:25+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            1.5 %        warn 70/crit 90          OK       user 0.5  sys 1.0  iowait 0.0
+CPU core0            2.0 %        warn 70/crit 90          OK       
+CPU core1            2.0 %        warn 70/crit 90          OK       
+Memory               34.6 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.10         warn 2.0/crit 4.0        OK       0.10 over 2 cores = 0.05 per core
+Processes            231          -                        OK       1 running, 231 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            1.52     0.51     1.01     0.00    98.48     0.00
+cpu0           1.98     0.99     0.99     0.00    98.02     0.00
+cpu1           2.04     1.02     1.02     0.00    97.96     0.00
+
+Memory: 34.57% | used 1196292 KiB | available 2263836 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.10 5m=0.04 15m=0.00 | cores=2 | 1m per core=0.05
+Processes (assignment labels): 1 running / 231 total
+
+=== System Resource Monitor -- sample 2/unlimited -- 2026-09-20T09:19:26+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            6.7 %        warn 70/crit 90          OK       user 1.9  sys 4.8  iowait 0.0
+CPU core0            4.7 %        warn 70/crit 90          OK       
+CPU core1            7.8 %        warn 70/crit 90          OK       
+Memory               34.7 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.09         warn 2.0/crit 4.0        OK       0.09 over 2 cores = 0.04 per core
+Processes            234          -                        OK       2 running, 234 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            6.70     1.91     4.78     0.00    93.30     0.00
+cpu0           4.72     0.94     3.77     0.00    95.28     0.00
+cpu1           7.77     1.94     5.83     0.00    92.23     0.00
+
+Memory: 34.72% | used 1201300 KiB | available 2258828 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.09 5m=0.04 15m=0.00 | cores=2 | 1m per core=0.04
+Processes (assignment labels): 2 running / 234 total
+
+=== System Resource Monitor -- sample 3/unlimited -- 2026-09-20T09:19:27+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            7.0 %        warn 70/crit 90          OK       user 2.4  sys 4.2  iowait 0.0
+CPU core0            8.3 %        warn 70/crit 90          OK       
+CPU core1            4.8 %        warn 70/crit 90          OK       
+Memory               34.7 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.09         warn 2.0/crit 4.0        OK       0.09 over 2 cores = 0.04 per core
+Processes            231          -                        OK       1 running, 231 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            7.04     2.35     4.23     0.00    92.96     0.00
+cpu0           8.33     2.78     4.63     0.00    91.67     0.00
+cpu1           4.81     1.92     2.88     0.00    95.19     0.00
+
+Memory: 34.74% | used 1202044 KiB | available 2258084 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.09 5m=0.04 15m=0.00 | cores=2 | 1m per core=0.04
+Processes (assignment labels): 1 running / 231 total
+
+=== System Resource Monitor -- sample 4/unlimited -- 2026-09-20T09:19:28+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            8.1 %        warn 70/crit 90          OK       user 2.9  sys 4.8  iowait 0.0
+CPU core0            9.3 %        warn 70/crit 90          OK       
+CPU core1            8.7 %        warn 70/crit 90          OK       
+Memory               34.8 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.09         warn 2.0/crit 4.0        OK       0.09 over 2 cores = 0.04 per core
+Processes            231          -                        OK       1 running, 231 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            8.13     2.87     4.78     0.00    91.87     0.00
+cpu0           9.35     3.74     4.67     0.00    90.65     0.00
+cpu1           8.65     1.92     5.77     0.00    91.35     0.00
+
+Memory: 34.76% | used 1202756 KiB | available 2257372 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.09 5m=0.04 15m=0.00 | cores=2 | 1m per core=0.04
+Processes (assignment labels): 1 running / 231 total
+
+=== System Resource Monitor -- sample 5/unlimited -- 2026-09-20T09:19:29+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            4.3 %        warn 70/crit 90          OK       user 1.0  sys 3.4  iowait 0.0
+CPU core0            6.6 %        warn 70/crit 90          OK       
+CPU core1            2.0 %        warn 70/crit 90          OK       
+Memory               34.7 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.09         warn 2.0/crit 4.0        OK       0.09 over 2 cores = 0.04 per core
+Processes            232          -                        OK       1 running, 232 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            4.33     0.96     3.37     0.00    95.67     0.00
+cpu0           6.60     1.89     4.72     0.00    93.40     0.00
+cpu1           1.98     0.99     0.99     0.00    98.02     0.00
+
+Memory: 34.68% | used 1200088 KiB | available 2260040 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.09 5m=0.04 15m=0.00 | cores=2 | 1m per core=0.04
+Processes (assignment labels): 1 running / 232 total
+
+=== System Resource Monitor -- sample 6/unlimited -- 2026-09-20T09:19:30+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            5.7 %        warn 70/crit 90          OK       user 2.4  sys 2.8  iowait 0.0
+CPU core0            6.5 %        warn 70/crit 90          OK       
+CPU core1            4.8 %        warn 70/crit 90          OK       
+Memory               34.7 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.09         warn 2.0/crit 4.0        OK       0.09 over 2 cores = 0.04 per core
+Processes            232          -                        OK       1 running, 232 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            5.69     2.37     2.84     0.00    94.31     0.00
+cpu0           6.48     2.78     2.78     0.00    93.52     0.00
+cpu1           4.85     0.97     3.88     0.00    95.15     0.00
+
+Memory: 34.71% | used 1200980 KiB | available 2259148 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.09 5m=0.04 15m=0.00 | cores=2 | 1m per core=0.04
+Processes (assignment labels): 1 running / 232 total
+
+^C
+=================== Execution Summary ===================
+Total Samples Taken : 6
+Total Runtime       : 6 seconds
+---------------------------------------------------------
+METRIC      PEAK VALUE    TIME IN WARN    TIME IN CRIT
+---------------------------------------------------------
+CPU TOTAL   8.13%         0s              0s          
+CPU core0   9.35%         0s              0s          
+CPU core1   8.65%         0s              0s          
+Memory      34.76%        0s              0s          
+Swap        0.0%          0s              0s          
+Load        0.05          0s              0s          
+=========================================================
+alyssasaaa@os262:~/os-pa1-type1$ ./resmon.sh --interval abc 
+Error: --interval must be a positive integer greater than 0.
+alyssasaaa@os262:~/os-pa1-type1$ ./resmon.sh --cpu-warn 1 --count 2 
+=== System Resource Monitor -- sample 1/2 -- 2026-09-20T09:19:44+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            4.1 %        warn 1/crit 90           WARN     user 1.5  sys 2.0  iowait 0.0
+CPU core0            3.0 %        warn 1/crit 90           WARN     
+CPU core1            3.2 %        warn 1/crit 90           WARN     
+Memory               34.6 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.07         warn 2.0/crit 4.0        OK       0.07 over 2 cores = 0.04 per core
+Processes            234          -                        OK       1 running, 234 total
+
+ALERT  CPU total entered WARN (4.1% >= 1%) at 09:19:44
+ALERT  CPU core0 entered WARN (3.0% >= 1%) at 09:19:44
+ALERT  CPU core1 entered WARN (3.2% >= 1%) at 09:19:44
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            4.06     1.52     2.03     0.00    95.94     0.00
+cpu0           3.00     1.00     2.00     0.00    97.00     0.00
+cpu1           3.16     1.05     2.11     0.00    96.84     0.00
+
+Memory: 34.56% | used 1195912 KiB | available 2264216 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.07 5m=0.04 15m=0.00 | cores=2 | 1m per core=0.04
+Processes (assignment labels): 1 running / 234 total
+
+=== System Resource Monitor -- sample 2/2 -- 2026-09-20T09:19:45+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            5.4 %        warn 1/crit 90           WARN     user 1.9  sys 3.4  iowait 0.0
+CPU core0            6.7 %        warn 1/crit 90           WARN     
+CPU core1            5.0 %        warn 1/crit 90           WARN     
+Memory               34.6 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.07         warn 2.0/crit 4.0        OK       0.07 over 2 cores = 0.04 per core
+Processes            231          -                        OK       1 running, 231 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu            5.37     1.95     3.41     0.00    94.63     0.00
+cpu0           6.67     2.86     2.86     0.00    93.33     0.00
+cpu1           4.95     0.99     3.96     0.00    95.05     0.00
+
+Memory: 34.62% | used 1197968 KiB | available 2262160 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.07 5m=0.04 15m=0.00 | cores=2 | 1m per core=0.04
+Processes (assignment labels): 1 running / 231 total
+
+
+=================== Execution Summary ===================
+Total Samples Taken : 2
+Total Runtime       : 2 seconds
+---------------------------------------------------------
+METRIC      PEAK VALUE    TIME IN WARN    TIME IN CRIT
+---------------------------------------------------------
+CPU TOTAL   5.37%         2.07s           0s          
+CPU core0   6.67%         2.07s           0s          
+CPU core1   4.95%         2.07s           0s          
+Memory      34.62%        0s              0s          
+Swap        0.0%          0s              0s          
+Load        0.04          0s              0s          
+=========================================================
+alyssasaaa@os262:~/os-pa1-type1$ yes > /dev/null & ./resmon.sh --count 5; kill %1
+[1] 29888
+=== System Resource Monitor -- sample 1/5 -- 2026-09-20T09:19:57+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            50.8 %       warn 70/crit 90          OK       user 18.6  sys 32.2  iowait 0.0
+CPU core0            3.0 %        warn 70/crit 90          OK       
+CPU core1            100.0 %      warn 70/crit 90          CRIT     saturated
+Memory               34.6 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.05         warn 2.0/crit 4.0        OK       0.05 over 2 cores = 0.03 per core
+Processes            235          -                        OK       2 running, 235 total
+
+ALERT  CPU core1 entered CRIT (100.0% >= 90%) at 09:19:57
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu           50.75    18.59    32.16     0.00    49.25     0.00
+cpu0           2.97     0.99     1.98     0.00    97.03     0.00
+cpu1         100.00    37.00    63.00     0.00     0.00     0.00
+
+Memory: 34.64% | used 1198656 KiB | available 2261472 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.05 5m=0.03 15m=0.00 | cores=2 | 1m per core=0.03
+Processes (assignment labels): 2 running / 235 total
+
+=== System Resource Monitor -- sample 2/5 -- 2026-09-20T09:19:58+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            52.4 %       warn 70/crit 90          OK       user 19.2  sys 32.7  iowait 0.0
+CPU core0            3.0 %        warn 70/crit 90          OK       
+CPU core1            100.0 %      warn 70/crit 90          CRIT     saturated
+Memory               34.6 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.05         warn 2.0/crit 4.0        OK       0.05 over 2 cores = 0.03 per core
+Processes            232          -                        OK       2 running, 232 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu           52.40    19.23    32.69     0.00    47.60     0.00
+cpu0           2.97     0.99     1.98     0.00    97.03     0.00
+cpu1         100.00    36.89    63.11     0.00     0.00     0.00
+
+Memory: 34.64% | used 1198660 KiB | available 2261468 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.05 5m=0.03 15m=0.00 | cores=2 | 1m per core=0.03
+Processes (assignment labels): 2 running / 232 total
+
+=== System Resource Monitor -- sample 3/5 -- 2026-09-20T09:19:59+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            51.7 %       warn 70/crit 90          OK       user 18.1  sys 33.7  iowait 0.0
+CPU core0            3.9 %        warn 70/crit 90          OK       
+CPU core1            100.0 %      warn 70/crit 90          CRIT     saturated
+Memory               34.6 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.05         warn 2.0/crit 4.0        OK       0.05 over 2 cores = 0.03 per core
+Processes            232          -                        OK       2 running, 232 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu           51.71    18.05    33.66     0.00    48.29     0.00
+cpu0           3.88     1.94     1.94     0.00    96.12     0.00
+cpu1         100.00    33.98    66.02     0.00     0.00     0.00
+
+Memory: 34.64% | used 1198656 KiB | available 2261472 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.05 5m=0.03 15m=0.00 | cores=2 | 1m per core=0.03
+Processes (assignment labels): 2 running / 232 total
+
+=== System Resource Monitor -- sample 4/5 -- 2026-09-20T09:20:00+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            52.4 %       warn 70/crit 90          OK       user 18.0  sys 34.0  iowait 0.0
+CPU core0            4.8 %        warn 70/crit 90          OK       
+CPU core1            100.0 %      warn 70/crit 90          CRIT     saturated
+Memory               34.6 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.13         warn 2.0/crit 4.0        OK       0.13 over 2 cores = 0.07 per core
+Processes            232          -                        OK       2 running, 232 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu           52.43    17.96    33.98     0.00    47.57     0.00
+cpu0           4.85     1.94     1.94     0.00    95.15     0.00
+cpu1         100.00    34.95    65.05     0.00     0.00     0.00
+
+Memory: 34.64% | used 1198652 KiB | available 2261476 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.13 5m=0.05 15m=0.01 | cores=2 | 1m per core=0.07
+Processes (assignment labels): 2 running / 232 total
+
+=== System Resource Monitor -- sample 5/5 -- 2026-09-20T09:20:01+00:00 ===
+
+METRIC               VALUE        THRESHOLD                STATUS   DETAIL
+--------------------------------------------------------------------------------
+CPU total            52.9 %       warn 70/crit 90          OK       user 19.4  sys 33.5  iowait 0.0
+CPU core0            5.8 %        warn 70/crit 90          OK       
+CPU core1            100.0 %      warn 70/crit 90          CRIT     saturated
+Memory               34.6 %       warn 75/crit 90          OK       1.1 GiB of 3.3 GiB used
+Swap                 0.0 %        warn 20/crit 50          OK       no swap configured
+Load (1m)            0.13         warn 2.0/crit 4.0        OK       0.13 over 2 cores = 0.07 per core
+Processes            234          -                        OK       2 running, 234 total
+
+CPU breakdown (steal is the extra metric)
+CPU           Busy%    User%  System%  IOwait%    Idle%   Steal%
+cpu           52.91    19.42    33.50     0.00    47.09     0.00
+cpu0           5.77     1.92     2.88     0.00    94.23     0.00
+cpu1         100.00    35.92    64.08     0.00     0.00     0.00
+
+Memory: 34.64% | used 1198648 KiB | available 2261480 KiB | total 3460128 KiB
+Swap: no swap configured (reported usage 0.00%)
+Load: 1m=0.13 5m=0.05 15m=0.01 | cores=2 | 1m per core=0.07
+Processes (assignment labels): 2 running / 234 total
+
+
+=================== Execution Summary ===================
+Total Samples Taken : 5
+Total Runtime       : 5 seconds
+---------------------------------------------------------
+METRIC      PEAK VALUE    TIME IN WARN    TIME IN CRIT
+---------------------------------------------------------
+CPU TOTAL   52.91%        0s              0s          
+CPU core0   5.77%         0s              0s          
+CPU core1   100.00%       0s              5.12s       
+Memory      34.64%        0s              0s          
+Swap        0.0%          0s              0s          
+Load        0.07          0s              0s          
+=========================================================
+[1]+  Terminated                 yes > /dev/null
+alyssasaaa@os262:~/os-pa1-type1$ bash -n resmon.sh && shellcheck resmon.sh
+alyssasaaa@os262:~/os-pa1-type1$ top -bn2 | grep '^%Cpu'
+%Cpu(s):  0.0 us,  4.5 sy,  0.0 ni, 95.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+%Cpu(s):  0.5 us,  0.7 sy,  0.0 ni, 98.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+alyssasaaa@os262:~/os-pa1-type1$ free -k  
+               total        used        free      shared  buff/cache   available
+Mem:         3460128     1198032     1322676        1044     1089984     2262096
+Swap:              0           0           0
+alyssasaaa@os262:~/os-pa1-type1$ 

@@ -8,7 +8,13 @@ main() {
     local previous_time
     local current_time
 
-    script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+    script_dir="${BASH_SOURCE[0]%/*}"
+    if [[ "$script_dir" == "${BASH_SOURCE[0]}" ]]; then
+        script_dir="."
+    elif [[ -z "$script_dir" ]]; then
+        script_dir="/"
+    fi
+
     # shellcheck source=lib/collectors.sh
     source "$script_dir/lib/collectors.sh"
     # shellcheck source=lib/monitoring.sh
@@ -51,9 +57,9 @@ main() {
         calculate_cpu_usage "$previous" "$current"
         collect_memory
         collect_load
-        TIMESTAMP=$(date '+%Y-%m-%dT%H:%M:%S%:z')
+        TIMESTAMP=$(date '+%Y-%m-%dT%H:%M:%S%:z') #ISO-8601
 
-        # Signals only set a flag. Finish this sample, including its CSV row.
+        # signals only set a flag. finish this sample, including its CSV row.
         classify_all_metrics
         write_csv_row
         update_summary_stats
